@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-LABEL version="1.0"
+LABEL version="1.1"
 LABEL description="Data storage via rsync/ssh (or scp/sftp if enabled)"
 
 ARG UID=1000 GID=1000 USER=data RSYNC=1 SCP=1 SFTP=0 AUTHDIR

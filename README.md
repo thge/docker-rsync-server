@@ -1,12 +1,12 @@
 # alpine based rsync server
 
-A rsync/sshd server for storing/providing files. This image can support rsync, scp and sftp access (via docker build arguments). As default only rsync over ssh is enabled.
+A rsync/sshd server for storing/providing files. This image can support rsync, scp and sftp access (via docker build arguments). As default rsync over ssh and scp are enabled.
 
 Access is only allowed via public key authentication.
 
 This docker container uses two volumes:
- - /home/data - base path for storing data
- - /var/local/etc/ssh - volume to store host keys and authorized_keys to connect via ssh
+ - `/home/data` - base path for storing data
+ - `/var/local/etc/ssh` - volume to store SSH host keys
 
 
 ## run container
@@ -15,7 +15,7 @@ This docker container uses two volumes:
 docker run -p 2200:22 -e AUTHORIZED_KEYS="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGjWn9ccu2hU/5o5CYbz4qj5FW+7SGgby39rgVHOqGuQ test-key" -v rsync_ssh:/var/local/etc/ssh -v rsync_data:/home/data rsync-server:latest
 ```
 
-This create two volumes `rsync_ssh` and `rsync_data` to store persistent data. `rsync_ssh` has the generated SSH host keys, `rsync_data` will receive all files.
+This creates two volumes `rsync_ssh` and `rsync_data` to store persistent data. `rsync_ssh` has the generated SSH host keys, `rsync_data` will receive all files.
 
 ```
 rsync -av -e "ssh -p 2200" mydir data@<docker-host>:

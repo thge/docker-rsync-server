@@ -16,7 +16,8 @@ fi
 chmod 0644 $AUTHORIZED_KEYS_FILE || true # chmod fails if $AUTHORIZED_KEYS_FILE is bind mounted
 
 if [[ -n "${ALLOWED_OPTIONS:-}" ]]; then
-    echo "$ALLOWED_OPTIONS" > /etc/rssh.conf
+    # replace \n with newline
+    echo "$ALLOWED_OPTIONS" | sed 's/\\n/\n/g' > /etc/rssh.conf
 fi
 
 if [[ "$(stat -c %U:%G "$DATA_DIR")" != "$DATA_USER:$DATA_USER" ]]; then
